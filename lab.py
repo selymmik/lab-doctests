@@ -40,6 +40,11 @@ def is_even(n):
     >>> type(is_even(0))
     <class 'bool'>
     '''
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+
 
 
 def is_odd(n):
@@ -60,6 +65,10 @@ def is_odd(n):
     <class 'bool'>
     '''
 
+    if n % 2 == 0:
+        return False
+    else:
+        return True
 
 def absolute_value(n):
     '''
@@ -77,6 +86,10 @@ def absolute_value(n):
     >>> absolute_value(-5.5)
     5.5
     '''
+    if n < 0:
+        return -n
+    else:
+        return n
 
 
 def max_num(a, b):
@@ -97,6 +110,10 @@ def max_num(a, b):
     >>> type(max_num(4, 4))
     <class 'int'>
     '''
+    if a > b:
+        return a
+    else:
+        return b
 
 
 def max_num_4(a, b, c, d):
@@ -117,6 +134,15 @@ def max_num_4(a, b, c, d):
     >>> max_num_4(10,1,2,3)
     10
     '''
+    if a > b and a > c and a > d:
+        return a
+    if b > a and b > c and a > d:
+        return b
+    if c > a and c > b and c > d:
+        return c
+    else:
+        return d
+
 
 
 def max_num_abs(a, b):
@@ -137,6 +163,14 @@ def max_num_abs(a, b):
     >>> type(max_num_abs(4, 4))
     <class 'int'>
     '''
+    if abs(a) > abs(b):
+        return a
+    if abs(a) == abs(b) and a > b:
+        return a
+    if abs(b) == abs(a) and b > a:
+        return b
+    else:
+        return b
 
 
 def is_leap_year(n):
@@ -162,6 +196,21 @@ def is_leap_year(n):
     >>> is_leap_year(2400)
     True
     '''
+    # divisible by 4 without remainder BUT check if divisible by 100 without remainder and if so, check if divisible by 400 without remainder in which case it would be a leap year and vise versa - if divisible by 100 without remainder BUT divisible by 400 without remainder then not a leap year
+      # otherwise if divisible by 4 without remainder and divisble by 100 with remainder it is a leap year because the 400 check only applies IF divding by 100 nets no remainder.
+    # otherwise if not divisible by 4 without remainder - not a leap year
+   
+    if n % 4 == 0: 
+        if n % 100 == 0: 
+            if n % 400 == 0: 
+                return True 
+            else:
+                return False
+        else: 
+             return True
+    else: 
+        return False
+
 
 
 def num_digits(n):
@@ -194,6 +243,14 @@ def num_digits(n):
     >>> type(num_digits(4))
     <class 'int'>
     '''
+    count = 0
+    n = abs(n)
+    while n > 0:
+        n = n//10
+        count += 1
+    return count
+         
+     
 
 
 def factorial(n):
@@ -218,6 +275,11 @@ def factorial(n):
     >>> factorial(100)
     93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
     '''
+    current = 1
+    for i in range (1, n+1):
+        current = current * i
+    return current 
+
 
 
 def is_prime(n):
@@ -242,6 +304,19 @@ def is_prime(n):
     >>> is_prime(99)
     False
     '''
+    # check every nubmber p from 2 up to but not including N
+    # Start at 2 because 1 is not considered prime
+    # end at n-1 because all numbers are divisible by 1 so it wouldn't make sense to contest that to check the numbr if its prime
+    # checks using modulus if any number in range from 2 - up to N  division nets no remainder. and if it finds one instance of that it will return false
+    # if it does not find an instance in that range from 2 up to N that were division returns no remainder then it exits the loop and returns true
+    # check for if n == 1 outside of loop because if its in the loop it never execuites since n -1 = 0
+    if n < 2:
+         return False
+    for p in range(2, n-1):
+       
+        if n % p == 0:
+            return False
+    return True
 
 
 def is_perfect_square(n):
@@ -269,6 +344,14 @@ def is_perfect_square(n):
     >>> is_perfect_square(144)
     True
     '''
+   
+    for i in range (0, n+1):
+        if i*i == n:
+         return True
+    return False # outside loop again because it needs to run through all the numbers up to n to check for integers that are perfect squares.
+    # if it returned false in the loop the loop ends at the first instance of intergers that are not perfect squares and the loop fails and it will miss integers that are perfect squares. 
+    
+           
 
 
 def fibonacci(n):
@@ -312,6 +395,14 @@ def fibonacci(n):
     >>> type(fibonacci(4))
     <class 'int'>
     '''
+    f0 = 0
+    f1 = 1
+    for i in range (0, n):
+        fn = f0 + f1
+        f0 = f1
+        f1 = fn
+    return f0
+    
 
 
 ################################################################################
@@ -341,6 +432,15 @@ def cigar_party(cigars, is_weekend):
     >>> cigar_party(40, False)
     True
     '''
+    if is_weekend == False and cigars >= 40 and cigars <= 60:
+         return True
+    
+    if is_weekend == True and cigars >= 40: 
+        return True
+    else:
+        return False
+  
+
 
 
 def speeding_fine(speed, birthday):
@@ -377,7 +477,16 @@ def speeding_fine(speed, birthday):
     >>> speeding_fine(90, False)
     2000
     '''
-
+    if birthday:
+        speed = speed - 5 #5 mph grace period if birthday so "actual" speed is 5 miles less for the purposes of code
+    if speed <= 60: 
+        fine = 0
+    if speed >= 61 and speed <= 80:
+        fine = 100
+    elif speed > 80:
+        fine= 2000
+    return fine    
+       
 
 def near_ten(x):
     '''
@@ -398,7 +507,13 @@ def near_ten(x):
     >>> near_ten(-42)
     True
     '''
-
+    #x % 10 gives number between 0 and 9 - how far x is above the multiple of 10 just below it 
+    # if remainder is closer to 8 or 9 then its above previous multiple of 10 hence the >= 8 check for closeness to the next multiple
+    # if remainder is closer to 1 or 2 then its closer to lower multiple - hence the <= 2 check. 
+    # the or means that the code will check if either is true and if one is true then it returns true. 
+    # if the remainder is between 3-7 that distance is outside of the defined "2" range therefore will output a false
+    mod = x % 10
+    return mod <= 2 or mod >= 8
 
 def love6(a, b):
     '''
@@ -425,6 +540,8 @@ def love6(a, b):
     >>> love6(123, 6)
     True
     '''
+    return a == 6 or b == 6 or a+b == 6 or abs(b-a) == 6
+
 
 
 def funny_sum(a, b, c):
@@ -452,6 +569,19 @@ def funny_sum(a, b, c):
     13
     '''
 
+    #Checking three independent conditions and checking if a specific variable
+    #is different from both of the other two and if yes then adding it to the sum
+    total = 0
+ 
+    if a != b and a != c:
+        total += a
+    if b != a and b != c:
+        total += b
+    if c != a and c != b:
+        total += c
+
+    return total
+
 
 def median(a, b, c):
     '''
@@ -470,6 +600,14 @@ def median(a, b, c):
     >>> median(-3, -2, 7)
     -2
     '''
+    #for all three numbers a b and c you compare to see which one is the median)
+    if (a >= b and a <= c) or (a >= c and a <= b):
+        return a
+    if (b >= a and b <= c) or (b >= c and b <= a):
+        return b
+    if (c >= a and c <= b) or (c >= b and c <= a):
+        return c
+
 
 
 def sum_between(a, b):
@@ -495,6 +633,14 @@ def sum_between(a, b):
     >>> sum_between(0, 123456)
     7620753696
     '''
+    sum = 0
+    if a > b:
+        for i in range(b, a+1): #b+1 to be inclusive of b
+            sum += i
+    else: 
+        for i in range(a, b+1):
+            sum += i
+    return sum
 
 ################################################################################
 # PART III:
@@ -518,6 +664,16 @@ def largest(xs):
     10
     >>> largest([])
     '''
+    if len(xs) == 0:
+        return 
+    biggest = xs[0]
+    for i in xs:
+        if i > biggest:
+            biggest = i
+    return biggest
+        
+        
+    
 
 
 def last_element(xs):
@@ -536,6 +692,10 @@ def last_element(xs):
     1
     >>> last_element([])
     '''
+    if len(xs) == 0:
+        return None
+    else:
+        return xs[-1]
 
 
 def last_element_list(xs):
@@ -554,6 +714,13 @@ def last_element_list(xs):
     >>> last_element_list([])
     []
     '''
+    newlist = []
+    if len(xs) == 0:
+         return newlist
+    else:
+        newlist += [xs[-1]]
+        return newlist
+
 
 
 def first_three(xs):
@@ -574,6 +741,16 @@ def first_three(xs):
     >>> first_three([])
     []
     '''
+    oldlist = xs[0:2]
+    newlist = []
+    if len(xs) == 0:
+          return newlist
+    elif len(xs) <= 3:
+        return oldlist
+    else:
+         newlist += xs[0:3]
+         return newlist   
+
 
 
 def last_three(xs):
@@ -591,8 +768,16 @@ def last_three(xs):
     >>> last_three([0,1])
     [0, 1]
     '''
-
-
+    newlist = []
+    if len(xs) == 0:
+        return newlist
+    elif len(xs) <= 3:
+        return xs[0:]
+    else:
+        newlist += xs[-3:]
+        return newlist   
+    
+ 
 def largest3(xs):
     '''
     Return the largest 3 elements in a list in sorted order.
@@ -608,6 +793,35 @@ def largest3(xs):
     >>> largest3([])
     []
     '''
+    if len(xs) == 0:
+          return []
+    
+    if len(xs) <= 3:
+        return sorted(xs)            
+
+    biggest = xs[0]
+    biggest2 = xs[1]
+    biggest3 = xs[2]
+
+    #(biggest >= biggest2 >= biggest3), sorts first three of list
+    biggest, biggest2, biggest3 = sorted([biggest, biggest2, biggest3], reverse=True)
+
+    # Scans the rest of the list (index 3 onward) and updates the current
+    # top-3 slots (biggest, biggest2, biggest3) whenever a number is larger
+    # than one of them — the slots may have already changed from their
+    # initial values by this point in the loop.
+
+    for i in xs[3:]:
+          if i > biggest:
+             #new overall biggest is i, second biggest is previous biggest, and third biggest is previous second biggest
+             biggest, biggest2, biggest3 = i, biggest, biggest2
+          elif i > biggest2:
+              #if i is only bigger then 2nd biggest, biggest2 = i biggest3 = biggest2
+              biggest2, biggest3 = i, biggest2
+          elif i > biggest3:
+              #if i is only bigger then the third largest - set biggest3 = i
+              biggest3 = i
+    return [biggest3, biggest2, biggest]  #return in ascending order
 
 
 def filter_odd(xs):
@@ -626,6 +840,11 @@ def filter_odd(xs):
     >>> filter_odd([20,13,4,16,8,19,10])
     [20, 4, 16, 8, 10]
     '''
+    newlist = []
+    for i in xs[0:]:
+        if i % 2 == 0:
+            newlist += [i]
+    return newlist
 
 
 def filter_even(xs):
@@ -644,6 +863,11 @@ def filter_even(xs):
     >>> filter_even([20,13,4,16,8,19,10])
     [13, 19]
     '''
+    newlist = []
+    for i in xs[0:]:
+        if i % 2 != 0:
+            newlist += [i]
+    return newlist  
 
 
 def bigger_than_10(xs):
@@ -659,6 +883,12 @@ def bigger_than_10(xs):
     >>> bigger_than_10([4,5,6,11])
     1
     '''
+    count = 0
+
+    for i in xs[0:]:
+        if i > 10:
+            count += 1
+    return count
 
 
 def second_largest(xs):
@@ -678,6 +908,13 @@ def second_largest(xs):
     >>> second_largest([10])
     >>> second_largest([])
     '''
+    numbers = xs[0:]
+    numbers.sort()
+    if len(numbers) >= 2:
+        return numbers[-2]
+    else:
+        return None   
+
 
 
 def has_index_at_value(xs):
@@ -711,6 +948,13 @@ def has_index_at_value(xs):
     >>> has_index_at_value([2, 9, 5, 4, 19, 4, 4, 4, 4, 4])
     False
     '''
+    #gives us valid index positions for a list
+    #  i.e if len(xs) = 1 -> range(len(xs)) = 0 range returns position 0
+    for i in range(len(xs)):
+       if xs [i] == i:
+        return True
+    return False     
+
 
 
 def nested_filter_odd(xss):
@@ -726,6 +970,13 @@ def nested_filter_odd(xss):
     >>> nested_filter_odd([[20],[13,4,16,8,19],[10], [15, 13, 1]])
     [20, 4, 16, 8, 10]
     '''
+    newlist = []
+    for x in xss[0:]:
+        for num in x:
+            if num % 2 == 0:
+                newlist += [num]
+    return newlist
+        
 
 
 def flatten(xss):
@@ -741,6 +992,12 @@ def flatten(xss):
     >>> flatten([[10]])
     [10]
     '''
+    newlist = []
+    for x in xss[0:]:
+     for elem in x:
+            newlist += [elem]
+    return newlist
+
 
 
 def filter_flatten(xss):
@@ -766,3 +1023,17 @@ def filter_flatten(xss):
     >>> filter_flatten([[10]])
     [10]
     '''
+    #for each iteration xss[i] grabs the i-th sublist if i=0 - it grabs first sublist 
+    #second i grabs the i-ith item in the sublist - if i=0 it grabs the first element of that sublist
+    
+    newlist = []
+    for i in range(len(xss)):
+        newlist += [xss[i][i]]
+    return newlist
+    
+        
+           
+
+
+
+
