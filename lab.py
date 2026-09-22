@@ -136,9 +136,9 @@ def max_num_4(a, b, c, d):
     '''
     if a > b and a > c and a > d:
         return a
-    if b > a and b > c and a > d:
+    elif b > a and b > c and b > d:
         return b
-    if c > a and c > b and c > d:
+    elif c > a and c > b and c > d:
         return c
     else:
         return d
@@ -741,7 +741,7 @@ def first_three(xs):
     >>> first_three([])
     []
     '''
-    oldlist = xs[0:2]
+    oldlist = xs[0:]
     newlist = []
     if len(xs) == 0:
           return newlist
